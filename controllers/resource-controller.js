@@ -3,6 +3,10 @@ const HttpError = require("../models/http-error");
 const User = require("../models/user-model");
 const Resource = require("../models/resource-model");
 
+//------------------Libraries---------------------------
+const fs = require("fs");
+const path = require("path");
+
 //----------------------Controllers------------------
 
 const getNewStudentResources = async (req, res, next) => {
@@ -158,6 +162,13 @@ const deleteResource = async (req, res, next) => {
         return next(new HttpError("Resource not found", 404));
     }
 
+    // Delete image file if it exists
+    if (resource.image !== "path/to/default/image.png") {
+        fs.unlink(resource.image, (error) => {
+            console.log(error);
+        });
+    }
+
     try {
         await resource.remove();
     } catch (error) {
@@ -166,6 +177,7 @@ const deleteResource = async (req, res, next) => {
 
     res.status(200).json({ message: "Resource deleted" });
 };
+
 
 exports.getDashboardResources = getDashboardResources;
 exports.getNewStudentResources = getNewStudentResources;
