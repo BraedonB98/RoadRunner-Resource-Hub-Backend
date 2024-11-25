@@ -23,9 +23,23 @@ const studentSchema = new Schema({
   },
   analytics:{
     accountCreated: { type: Date , default: Date.now},
+    lastLogin: { type: Date , default: Date.now},
+    lastModified: { type: Date , default: Date.now},
     //engagement: { type: Number },
     //careerReadiness: { type: Number },
     //academicSuccess: { type: Number},
+  },
+  careerProfile:{
+    resume: { type: mongoose.Types.ObjectId, ref: "Resume" },
+    coverLetter: { type: mongoose.Types.ObjectId, ref: "CoverLetter" },
+    portfolio: { type: mongoose.Types.ObjectId, ref: "Portfolio" },
+    linkedIn: { type: String },
+    personalWebsite: { type: String },
+    github: { type: String },
+    stackOverflow: { type: String },
+    behance: { type: String },
+    dribbble: { type: String },
+    other: { type: String },
   },
   dashboard: {
     resources: [{ type: mongoose.Types.ObjectId, ref: "Resource" }],

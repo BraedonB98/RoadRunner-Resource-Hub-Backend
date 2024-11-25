@@ -24,7 +24,10 @@ const facultySchema = new Schema({
   },
   analytics:{
     accountCreated: { type: Date , default: Date.now},
+    lastLogin: { type: Date , default: Date.now},
+    lastModified: { type: Date , default: Date.now},
   },
+  permissions: { type: mongoose.Types.ObjectId, ref: "Permission" },
   dashboard: {
     resources: [{ type: mongoose.Types.ObjectId, ref: "Resource" }],
     events: [{ type: mongoose.Types.ObjectId, ref: "Event" }],
