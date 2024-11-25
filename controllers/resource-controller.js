@@ -1,6 +1,6 @@
 //------------------Models------------------------------
 const HttpError = require("../models/http-error");
-const User = require("../models/user-model");
+const User = require("../models/users/user-model");
 const Resource = require("../models/resource-model");
 
 //------------------Libraries---------------------------

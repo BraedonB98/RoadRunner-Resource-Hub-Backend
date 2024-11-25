@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 
 //------------------Models------------------------------
 const HttpError = require("../models/http-error");
-const User = require("../models/user-model");
+const User = require("../models/users/user-model");
 
 //----------------------HelperFunction------------------
 const getUserById = async (uid) => {
