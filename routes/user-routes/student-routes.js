@@ -10,9 +10,8 @@ router.post("/createuser", userController.createUser);
 
 router.post("/login", userController.login);
 
-router.use(checkAuth); //Routes after require Auth
+router.use(checkAuth); // every route after this requires an token
 
-app.use("/student", studentRoutes); //api/user/student
 
 router.patch(
   "/:uid/info/photo",
