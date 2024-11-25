@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const resourceSchema = new Schema({
   title: { type: String },
-  search: [{ type: String }],
+  tags: [{ type: String }],
   description: { type: String },
   link: { type: String },
   image: { type: String },

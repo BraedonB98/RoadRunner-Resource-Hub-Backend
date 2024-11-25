@@ -15,13 +15,19 @@ const studentSchema = new Schema({
     majors: [{ type: mongoose.Types.ObjectId, ref: "Major" }],
     minors: [{ type: mongoose.Types.ObjectId, ref: "Minor" }],
     certificates: [{ type: mongoose.Types.ObjectId, ref: "Certificate" }],
-     schools: [{ type: mongoose.Types.ObjectId, ref: "School" }],
+    schools: [{ type: mongoose.Types.ObjectId, ref: "School" }],
     degreeLevel: { type: mongoose.Types.ObjectId, ref: "DegreeLevel" },
     graduationDate: { type: Date },
     classLevel: { type: mongoose.Types.ObjectId, ref: "ClassLevel" },
     GPA: { type: Number },
   },
-  Dashboard: {
+  analytics:{
+    accountCreated: { type: Date , default: Date.now},
+    //engagement: { type: Number },
+    //careerReadiness: { type: Number },
+    //academicSuccess: { type: Number},
+  },
+  dashboard: {
     resources: [{ type: mongoose.Types.ObjectId, ref: "Resource" }],
     events: [{ type: mongoose.Types.ObjectId, ref: "Event" }],
     announcements: [{ type: mongoose.Types.ObjectId, ref: "Announcement" }],
