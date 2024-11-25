@@ -30,8 +30,8 @@ const studentSchema = new Schema({
     //academicSuccess: { type: Number},
   },
   careerProfile:{
-    resume: { type: mongoose.Types.ObjectId, ref: "Resume" },
-    coverLetter: { type: mongoose.Types.ObjectId, ref: "CoverLetter" },
+    resumes: [{ type: mongoose.Types.ObjectId, ref: "Resume" }],
+    coverLetters: [{ type: mongoose.Types.ObjectId, ref: "CoverLetter" }],
     portfolio: { type: mongoose.Types.ObjectId, ref: "Portfolio" },
     linkedIn: { type: String },
     personalWebsite: { type: String },
