@@ -26,6 +26,7 @@
   },
   "homepage": "https://github.com/BraedonB98/2dofinance#readme",
   "devDependencies": {
+    "jest": "^29.7.0",
     "nodemon": "^2.0.22"
   },
   "dependencies": {

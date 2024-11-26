@@ -16,9 +16,9 @@ const studentSchema = new Schema({
     minors: [{ type: mongoose.Types.ObjectId, ref: "Minor" }],
     certificates: [{ type: mongoose.Types.ObjectId, ref: "Certificate" }],
     schools: [{ type: mongoose.Types.ObjectId, ref: "School" }],
-    degreeLevel: { type: mongoose.Types.ObjectId, ref: "DegreeLevel" },
+    degreeLevel: { type: mongoose.Types.ObjectId, ref: "DegreeLevel" }, //Bachelors, Masters, Doctorate
     graduationDate: { type: Date },
-    classLevel: { type: mongoose.Types.ObjectId, ref: "ClassLevel" },
+    classLevel: { type: mongoose.Types.ObjectId, ref: "ClassLevel" }, //Freshman, Sophomore, Junior, Senior, Graduate
     GPA: { type: Number },
   },
   analytics:{

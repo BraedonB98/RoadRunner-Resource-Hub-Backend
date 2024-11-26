@@ -6,8 +6,20 @@ Please see
 - [Backend-Wiki](https://github.com/users/BraedonB98/projects/3/views/1) - For Developer API information
 
 ## Developer Information
-you need ngrok to be able to open port to internet for sms functionality
-
-may need to install twilio-cli into project, its installed globally but not for this project
-
+### Installation
+- `cd ` /RoadRunner-Resource-Hub-Backend
+- `npm install`
+- install <a href= "https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-windows/#std-label-install-mdb-community-windows">mongodb</a>
+- Create nodemon.json file in /RoadRunner-Resource-Hub-Backend
+```
+{
+    "env": {
+        "MongoDB_User": "username",
+        "MongoDB_Password": "password",
+        "MongoDB_Server": "<ClusterName>.rdn2l.mongodb.net",
+        "MongoDB_AppName":"<ClusterName>",
+        "JWT_Key":"KEY"
+    }
+}
+```
 use npm run dev to start, no longer npm start
