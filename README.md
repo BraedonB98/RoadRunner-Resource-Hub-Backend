@@ -14,11 +14,8 @@ Please see
 ```
 {
     "env": {
-        "MongoDB_User": "username",
-        "MongoDB_Password": "password",
-        "MongoDB_Server": "<ClusterName>.rdn2l.mongodb.net",
-        "MongoDB_AppName":"<ClusterName>",
-        "JWT_Key":"KEY"
+        "MongoDB_URL": "<MongoDB URL>",
+        "JWT_Key":"<KEY>"
     }
 }
 ```

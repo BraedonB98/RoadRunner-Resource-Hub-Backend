@@ -26,17 +26,17 @@
   "homepage": "https://github.com/BraedonB98/RoadRunner-Resource-Hub-Backend/wiki",
   "devDependencies": {
     "jest": "^29.7.0",
-    "nodemon": "^2.0.22"
+    "nodemon": "^3.1.7"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.1",
-    "express": "^4.17.2",
-    "jsonwebtoken": "^8.5.1",
-    "mongodb": "^6.10.0",
-    "mongoose": "^6.1.7",
+    "express": "^4.21.1",
+    "jsonwebtoken": "^9.0.2",
+    "mongodb": "^6.11.0",
+    "mongoose": "^6.13.4",
     "multer": "^1.4.4",
-    "npm": "^10.9.0",
+    "npm": "^10.9.1",
     "uuid": "^8.3.2",
     "validator": "^13.12.0"
   }
