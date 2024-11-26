@@ -66,11 +66,11 @@ app.use((error, req, res, next) => {
 });
 
 //------------------Mongo------------------------
-console.log(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@${process.env.MongoDB_Server}/?retryWrites=true&w=majority&appName=${process.env.MongoDB_AppName}`);
+console.log(`${process.env.MongoDB_URL}/?retryWrites=true&w=majority`);
 
 mongoose
   .connect(
-    `mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@${process.env.MongoDB_Server}/?retryWrites=true&w=majority&appName=${process.env.MongoDB_AppName}`
+    `${process.env.MongoDB_URL}/?retryWrites=true&w=majority`
   )
   .then(() => {
     app.listen(process.env.PORT || 5000);

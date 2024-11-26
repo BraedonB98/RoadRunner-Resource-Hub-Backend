@@ -4,9 +4,10 @@
   "description": "student resources",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "test": "jest --runInBand --watch ./__tests__ && npm run test:cleanup",
+    "test:cleanup": "node ./__tests__/testdb-cleanup.js"
   },
   "repository": {
     "type": "git",

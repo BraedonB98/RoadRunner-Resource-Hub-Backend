@@ -1,7 +1,7 @@
 const { MongoClient } = require('mongodb');
 
 const deleteTestDatabases = async () => {
-  const url = `mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@${process.env.MongoDB_Server}/?retryWrites=true&w=majority&appName=${process.env.MongoDB_AppName}`;
+  const url = `${process.env.MongoDB_URL}/?retryWrites=true&w=majority`;
   const client = new MongoClient(url);
 
   try {
