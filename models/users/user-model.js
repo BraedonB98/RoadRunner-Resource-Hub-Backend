@@ -20,7 +20,7 @@ const userSchema = new Schema({
   facultyAccount: {type: mongoose.Types.ObjectId, ref: "Faculty"},
   adminAccount: {type: mongoose.Types.ObjectId, ref: "Admin"},
   staffAccount: {type: mongoose.Types.ObjectId, ref: "Staff"},
-  industryPartnerAccount: {type: mongoose.Types.ObjectId, ref: "IndustryPartner"},
+  contactAccount: {type: mongoose.Types.ObjectId, ref: "IndustryContact"},
 });
 
 module.exports = mongoose.model("User", userSchema);

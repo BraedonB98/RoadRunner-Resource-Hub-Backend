@@ -7,8 +7,8 @@ const { isEmail, isMobilePhone, isStrongPassword } = require('validator');
 const studentSchema = new Schema({
   schoolStudentID: { type: String , required: true},
   birthdate: { type: Date , required: true},
-  address: { type: String , required: true},
-  permanentAddress: { type: String , required: true},
+  address: { type: mongoose.types.ObjectId, ref: "Location" },
+  permanentAddress: { type: mongoose.types.ObjectId, ref: "Location" },
   alumni: { type: Boolean , required: true},
   advisors: [{ type: mongoose.Types.ObjectId, ref: "Staff" }],
   academicDetails: {
@@ -25,6 +25,10 @@ const studentSchema = new Schema({
     accountCreated: { type: Date , default: Date.now},
     lastLogin: { type: Date , default: Date.now},
     lastModified: { type: Date , default: Date.now},
+    status: { 
+      active: { type: Boolean , default: true},
+      statusChangeDate: { type: Date , default: Date.now},
+    },
     //engagement: { type: Number },
     //careerReadiness: { type: Number },
     //academicSuccess: { type: Number},
