@@ -22,4 +22,11 @@ Please see
     }
 }
 ```
-use npm run dev to start, no longer npm start
+
+### Tests
+https://dev.to/ndohjapan/running-unit-tests-with-mongodb-in-a-nodejs-express-application-using-jest-42de
+
+### Commands
+npm run dev - starts up backend server
+npm run test - runs tests
+npm run test:cleanup - cleans up after tests.

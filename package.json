@@ -11,21 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BraedonB98/2dofinance.git"
+    "url": "git+https://github.com/BraedonB98/RoadRunner-Resource-Hub-Backend.git"
   },
   "keywords": [
-    "Finance",
-    "Tracker",
-    "TODO",
-    "List",
-    "Productivity"
+    "Student",
+    "University",
+    "Resources"
   ],
   "author": "Braedon Bellamy",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/BraedonB98/2dofinance/issues"
+    "url": "https://github.com/BraedonB98/RoadRunner-Resource-Hub-Backend/issues"
   },
-  "homepage": "https://github.com/BraedonB98/2dofinance#readme",
+  "homepage": "https://github.com/BraedonB98/RoadRunner-Resource-Hub-Backend/wiki",
   "devDependencies": {
     "jest": "^29.7.0",
     "nodemon": "^2.0.22"
