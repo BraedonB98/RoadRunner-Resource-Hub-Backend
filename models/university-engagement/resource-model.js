@@ -13,4 +13,4 @@ const resourceSchema = new Schema({
   users: [{ type: mongoose.Types.ObjectId, ref: "User" }],
 });
 
-module.exports = mongoose.model("resource", resourceSchema);
+module.exports = mongoose.model("Resource", resourceSchema);

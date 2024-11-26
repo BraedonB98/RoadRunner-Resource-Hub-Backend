@@ -16,4 +16,4 @@ const permissionSchema = new Schema({
   permissionUpdated: { type: Date , default: Date.now},
 });
 
-module.exports = mongoose.model("Staff", staffSchema);
+module.exports = mongoose.model("Permission", permissionSchema);

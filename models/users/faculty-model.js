@@ -6,6 +6,7 @@ const { isEmail, isMobilePhone, isStrongPassword } = require('validator');
 
 const facultySchema = new Schema({
   schoolFacultyID: { type: String , required: true},
+  type: { type: String , required: true},//teaching assistant, adjunct, associate, full
   birthdate: { type: Date },
   address: { type: mongoose.types.ObjectId, ref: "Location" },
   permanentAddress: { type: mongoose.types.ObjectId, ref: "Location" },
