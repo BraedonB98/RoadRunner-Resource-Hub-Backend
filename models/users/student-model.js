@@ -5,11 +5,12 @@ const Schema = mongoose.Schema;
 const { isEmail, isMobilePhone, isStrongPassword } = require("validator");
 
 const studentSchema = new Schema({
+  user: { type: mongoose.Types.ObjectId, ref: "User" },
   schoolStudentID: { type: String, required: true },
   birthdate: { type: Date, required: true },
   address: { type: mongoose.Types.ObjectId, ref: "Location" },
   permanentAddress: { type: mongoose.Types.ObjectId, ref: "Location" },
-  alumni: { type: Boolean, required: true },
+  alumni: { type: Boolean, required: true, default: false },
   advisors: [{ type: mongoose.Types.ObjectId, ref: "Staff" }],
   academicDetails: {
     majors: [{ type: mongoose.Types.ObjectId, ref: "Major" }],

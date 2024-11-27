@@ -158,6 +158,7 @@ const createUser = async (req, res, next) => {
     birthdate: birthdate,
     address: null,
     permanentAddress: null,
+    alumni: false,
     advisors: [],
     academicDetails: {
       majors: [],
@@ -229,6 +230,8 @@ const createUser = async (req, res, next) => {
     await createdStudent.save({ session: sess });
     createdUser.studentAccount = createdStudent._id;
     await createdUser.save({ session: sess });
+    createdStudent.user = createdUser._id;
+    await createdStudent.save({ session: sess });
     await sess.commitTransaction();
   } catch (error) {
     console.log(error);

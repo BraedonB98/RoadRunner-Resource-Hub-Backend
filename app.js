@@ -16,21 +16,11 @@ const resourceRoutes = require("./routes/resource-routes");
 //-----------------MiddleWare--------------------
 app.use(bodyParser.json());
 
-
-app.use(
-  "/data/frontEndRef/images",
-  express.static(path.join("data", "frontEndRef", "images"))
-);
-app.use(
-  "/data/uploads/images",
-  express.static(path.join("data", "uploads", "images"))
-);
+app.use("/data/frontEndRef/images", express.static(path.join("data", "frontEndRef", "images")));
+app.use("/data/uploads/images", express.static(path.join("data", "uploads", "images")));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); //Access-control-Allow-Origin required to let browser use api, the the * can be replaced by urls (for the browser) that are allowed to use it
-  res.setHeader(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
-  );
+  res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, PATCH, DELETE"); //Second values are what types of requests you want to accept
   next();
 });
@@ -38,8 +28,6 @@ app.use((req, res, next) => {
 //-----------------Known Routes--------------------------
 app.use("/api/user", userRoutes); // /api/user...
 app.use("/api/resource", resourceRoutes); // /api/resources...
-
-
 
 //-----------------Unknown Route Handling-------------------
 app.use((req, res, next) => {
@@ -54,11 +42,11 @@ app.use((error, req, res, next) => {
       console.log(err);
     });
   }
-  
+
   if (res.headerSent) {
     return next(error);
   }
-  
+
   res.status(error.code || 500);
   res.json({
     message: error.message || "An unknown error(imageHandling) occurred!",
@@ -66,12 +54,10 @@ app.use((error, req, res, next) => {
 });
 
 //------------------Mongo------------------------
-console.log(`${process.env.MongoDB_URL}/?retryWrites=true&w=majority`);
+console.log(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@${process.env.MongoDB_Server}/?retryWrites=true&w=majority&appName=${process.env.MongoDB_AppName}`);
 
 mongoose
-  .connect(
-    `${process.env.MongoDB_URL}/?retryWrites=true&w=majority`
-  )
+  .connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@${process.env.MongoDB_Server}/?retryWrites=true&w=majority&appName=${process.env.MongoDB_AppName}`)
   .then(() => {
     app.listen(process.env.PORT || 5000);
   })
