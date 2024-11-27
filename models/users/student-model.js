@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const { isEmail, isMobilePhone, isStrongPassword } = require('validator');
+const { isEmail, isMobilePhone, isStrongPassword } = require("validator");
 
 const studentSchema = new Schema({
-  schoolStudentID: { type: String , required: true},
-  birthdate: { type: Date , required: true},
-  address: { type: mongoose.types.ObjectId, ref: "Location" },
-  permanentAddress: { type: mongoose.types.ObjectId, ref: "Location" },
-  alumni: { type: Boolean , required: true},
+  schoolStudentID: { type: String, required: true },
+  birthdate: { type: Date, required: true },
+  address: { type: mongoose.Types.ObjectId, ref: "Location" },
+  permanentAddress: { type: mongoose.Types.ObjectId, ref: "Location" },
+  alumni: { type: Boolean, required: true },
   advisors: [{ type: mongoose.Types.ObjectId, ref: "Staff" }],
   academicDetails: {
     majors: [{ type: mongoose.Types.ObjectId, ref: "Major" }],
@@ -21,19 +21,19 @@ const studentSchema = new Schema({
     classLevel: { type: mongoose.Types.ObjectId, ref: "ClassLevel" }, //Freshman, Sophomore, Junior, Senior, Graduate
     GPA: { type: Number },
   },
-  analytics:{
-    accountCreated: { type: Date , default: Date.now},
-    lastLogin: { type: Date , default: Date.now},
-    lastModified: { type: Date , default: Date.now},
-    status: { 
-      active: { type: Boolean , default: true},
-      statusChangeDate: { type: Date , default: Date.now},
+  analytics: {
+    accountCreated: { type: Date, default: Date.now },
+    lastLogin: { type: Date, default: Date.now },
+    lastModified: { type: Date, default: Date.now },
+    status: {
+      active: { type: Boolean, default: true },
+      statusChangeDate: { type: Date, default: Date.now },
     },
     //engagement: { type: Number },
     //careerReadiness: { type: Number },
     //academicSuccess: { type: Number},
   },
-  careerProfile:{
+  careerProfile: {
     resumes: [{ type: mongoose.Types.ObjectId, ref: "Resume" }],
     coverLetters: [{ type: mongoose.Types.ObjectId, ref: "CoverLetter" }],
     portfolio: { type: mongoose.Types.ObjectId, ref: "Portfolio" },
@@ -51,7 +51,7 @@ const studentSchema = new Schema({
     announcements: [{ type: mongoose.Types.ObjectId, ref: "Announcement" }],
   },
   preferences: {
-    notifications: { type: Boolean },//expand this later to time, email, phone, ext
+    notifications: { type: Boolean }, //expand this later to time, email, phone, ext
   },
 });
 

@@ -26,7 +26,8 @@
   "homepage": "https://github.com/BraedonB98/RoadRunner-Resource-Hub-Backend/wiki",
   "devDependencies": {
     "jest": "^29.7.0",
-    "nodemon": "^3.1.7"
+    "nodemon": "^3.1.7",
+    "prettier": "^3.4.1"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

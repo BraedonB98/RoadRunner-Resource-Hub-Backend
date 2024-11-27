@@ -7,14 +7,11 @@ const fileUpload = require("../middleware/file-upload");
 const router = express.Router();
 
 //insert new routes that do not need authentication here
-router.get("/resources/newstudent", resourceController.getNewStudentResources);
-router.get("/resources/continuingstudent", resourceController.getContinuingStudentResources);
-router.get("/resources/graduatingstudent", resourceController.getGraduatingStudentResources);
-router.get("/resources/dashboard", resourceController.getDashboardResources);
+router.get("/resources/public/:resourceType", resourceController.getPublicResources);
 
 router.use(checkAuth); // every route after this requires an token
 
-router.get("/resources/:uid", resourceController.getUserResources);
+router.get("/resources/dashboard", resourceController.getDashboardResources);
 
 router.delete("/resources/:rid", resourceController.deleteResource);
 

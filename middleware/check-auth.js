@@ -11,13 +11,10 @@ module.exports = (req, res, next) => {
       throw new Error("Authentication failed!");
     }
     const decodedToken = jwt.verify(token, process.env.JWT_Key);
-    req.userData = { _id: decodedToken._id };
+    req.userData = { _id: decodedToken._id }; //stores user id in req.userData._id
     next();
   } catch (error) {
     console.log(error);
-    return next(
-      new HttpError("Authentication Failed, Session Expired or Invalid", 403)
-    );
+    return next(new HttpError("Authentication Failed, Session Expired or Invalid", 403));
   }
 };
-
