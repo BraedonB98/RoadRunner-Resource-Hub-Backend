@@ -14,6 +14,7 @@ const permissionSchema = new Schema({
   permissionStatus: { type: Boolean },//valid, invalid, pending(can request permission from admin)
   permissionCreated: { type: Date , default: Date.now},
   permissionUpdated: { type: Date , default: Date.now},
+  users: [{ type: mongoose.Types.ObjectId, ref: "User" }],
 });
 
 module.exports = mongoose.model("Permission", permissionSchema);
