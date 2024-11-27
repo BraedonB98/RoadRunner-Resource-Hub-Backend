@@ -21,7 +21,7 @@ const fileUpload = multer({
   }),
   fileFilter: (req, file, cb) => {
     const isValid = !!MIME_TYPE_MAP[file.mimetype];
-    let error = isValid ? null : new Error("Invalid mime type"); //if valid then no error else error= invalid mime type
+    let error = isValid ? null : new Error("Invalid mime type"); //if it is not a png, jpeg, jpg, or svg file
     cb(error, isValid);
   },
 });
