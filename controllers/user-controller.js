@@ -70,7 +70,7 @@ const authGetUserByProp = async (userKey, userValue, signedInAs) => {
   let signedInUser;
   let userRequested;
   if (userKey === "email") {
-    const standardizedEmail = email.toLowerCase();
+    const standardizedEmail = userValue.toLowerCase();
     userRequested = await getUserByProp("email", standardizedEmail);
   } else if (userKey === "phoneNumber") {
     const standardizedPhoneNumber = phoneNumber.replace(/\D/g, ""); // Remove non-numeric characters
@@ -95,7 +95,7 @@ const authGetUserByProp = async (userKey, userValue, signedInAs) => {
       errorCode: userRequested.errorCode,
     };
   }
-  if (signedInUser._id === userRequested._id || signedInUser.adminAccount) {
+  if (signedInUser._id.equals(userRequested._id) || signedInUser.adminAccount) {
     return userRequested;
   }
   return false;
@@ -218,10 +218,8 @@ const getUserInformation = async (req, res, next) => {
   const userRequestKey = req.params.userkey;
   const userRequestedValue = req.params.uservalue;
   const userAccessing = req.userData._id;
-  console.log(userRequestKey, userRequestedValue, userAccessing);
   let user;
   user = await authGetUserByProp(userRequestKey, userRequestedValue, userAccessing);
-  console.log(user);
   if (!!user.error) {
     return next(new HttpError(user.errorMessage, user.errorCode));
   }
