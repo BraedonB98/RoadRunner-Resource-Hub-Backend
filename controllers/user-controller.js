@@ -219,6 +219,7 @@ const login = async (req, res, next) => {
       { expiresIn: "2h" },
     );
   } catch (error) {
+    console.log(error);
     return next(new HttpError("Logging in user failed", 500));
   }
   const userRestricted = {
