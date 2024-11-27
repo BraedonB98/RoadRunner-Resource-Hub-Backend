@@ -14,6 +14,8 @@ router.use(checkAuth); //Routes after require Auth
 
 router.get("/userinfo/:userkey/:uservalue", userController.getUserInformation);
 
+router.get("/useraccount/:accounttype/:uid", userController.getUserAccount);
+
 router.patch("/:uid/info/photo", fileUpload.single("image"), userController.photoUpload);
 
 module.exports = router;

@@ -5,9 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js",
-    "test": "jest --runInBand --watch ./tests && npm run test:cleanup",
-    "test:cleanup": "node ./tests/testdb-cleanup.js"
+    "dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -25,9 +23,8 @@
   },
   "homepage": "https://github.com/BraedonB98/RoadRunner-Resource-Hub-Backend/wiki",
   "devDependencies": {
-    "jest": "^29.7.0",
-    "jest-watch-typeahead": "^2.2.2",
     "mongodb": "^6.11.0",
+    "newman": "^6.2.1",
     "nodemon": "^3.1.7",
     "prettier": "^3.4.1"
   },

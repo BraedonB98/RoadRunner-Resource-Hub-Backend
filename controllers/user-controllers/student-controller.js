@@ -11,6 +11,30 @@ const User = require("../../models/users/user-model");
 const Student = require("../../models/users/student-model");
 const Address = require("../../models/location-model");
 
+//----------------------HelperFunction------------------
+const getStudentById = async (sid) => {
+  let student;
+  try {
+    student = await Student.findById(sid);
+  } catch (error) {
+    return {
+      error: error,
+      errorMessage: "Could not access student in database",
+      errorCode: 500,
+    };
+  }
+  if (!student) {
+    return {
+      error: true,
+      errorMessage: "Student not in database",
+      errorCode: 404,
+    };
+  }
+  return student;
+};
+
+//------------------Controllers------------------------
+
 const createStudentUser = async (req, res, next) => {
   //Eventually check msu database for student ID to ensure email and SID match
   const { firstName, middleName, lastName, userName, preferredName, gender, pronouns, email, phoneNumber, password, schoolStudentID, birthdate } = req.body;
@@ -202,4 +226,5 @@ const createStudentUser = async (req, res, next) => {
   });
 };
 
+exports.getStudentById = getStudentById;
 exports.createStudentUser = createStudentUser;

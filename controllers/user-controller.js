@@ -101,6 +101,35 @@ const authGetUserByProp = async (userKey, userValue, signedInAs) => {
   return false;
 };
 
+const getUserAccountByUser = async (uid, accountType) => {
+  let userRequested;
+  userRequested = await getUserById(uid);
+  console.log(userRequested);
+  if (!!userRequested.error) {
+    return {
+      error: true,
+      errorMessage: userRequested.errorMessage, //!could update to say who the error is with
+      errorCode: userRequested.errorCode,
+    };
+  }
+  if (accountType == "student") {
+    let studentAccount = await studentController.getStudentById(userRequested.studentAccount);
+    return studentAccount;
+  }
+  if (accountType == "faculty") {
+    //get user faculty account
+  }
+  if (accountType == "admin") {
+    //get user admin account
+  }
+  if (accountType == "staff") {
+    //get user staff account
+  }
+  if (accountType == "contact") {
+    //get user contact account
+  }
+};
+
 const userInDataBase = async (uid) => {
   let inDatabase;
   try {
@@ -123,21 +152,25 @@ const login = async (req, res, next) => {
   //Standardize email
 
   let existingUser;
-  if (!phoneNumber) {
-    const standardizedEmail = email.toLowerCase();
-    existingUser = await getUserByProp("email", standardizedEmail);
-    if (!!existingUser.error) {
-      return next(new HttpError(existingUser.errorMessage, existingUser.errorCode));
+  try {
+    if (!phoneNumber) {
+      const standardizedEmail = email.toLowerCase();
+      existingUser = await getUserByProp("email", standardizedEmail);
+      if (!!existingUser.error) {
+        return next(new HttpError(existingUser.errorMessage, existingUser.errorCode));
+      }
     }
-  }
-  if (!email) {
-    // Standardize phone number
-    const standardizedPhoneNumber = phoneNumber.replace(/\D/g, ""); // Remove non-numeric characters
-    const formattedPhoneNumber = `+1${standardizedPhoneNumber}`; // Add country code for US
-    existingUser = await getUserByProp("phoneNumber", formattedPhoneNumber);
-    if (!!existingUser.error) {
-      return next(new HttpError(existingUser.errorMessage, existingUser.errorCode));
+    if (!email) {
+      // Standardize phone number
+      const standardizedPhoneNumber = phoneNumber.replace(/\D/g, ""); // Remove non-numeric characters
+      const formattedPhoneNumber = `+1${standardizedPhoneNumber}`; // Add country code for US
+      existingUser = await getUserByProp("phoneNumber", formattedPhoneNumber);
+      if (!!existingUser.error) {
+        return next(new HttpError(existingUser.errorMessage, existingUser.errorCode));
+      }
     }
+  } catch (error) {
+    return next(new HttpError("No email or phonenumber provided", 400));
   }
 
   //Checking Passwords
@@ -230,6 +263,19 @@ const getUserInformation = async (req, res, next) => {
   res.json({ user: user.toObject({ getters: true }) });
 };
 
+const getUserAccount = async (req, res, next) => {
+  //return all information in the user model but must be from an admin account or self
+  const uid = req.params.uid;
+  const userAccessing = req.userData._id;
+  const accountType = req.params.accounttype;
+  let account;
+  account = await getUserAccountByUser(uid, accountType);
+  if (!!account.error) {
+    return next(new HttpError(user.errorMessage, user.errorCode));
+  }
+  res.json({ account: account.toObject({ getters: true }) });
+};
+
 const photoUpload = async (req, res, next) => {
   const uid = req.userData._id;
 
@@ -268,3 +314,4 @@ exports.getUserInformation = getUserInformation;
 exports.getUserById = getUserById;
 exports.getUserByProp = getUserByProp;
 exports.userInDataBase = userInDataBase;
+exports.getUserAccount = getUserAccount;

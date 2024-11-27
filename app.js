@@ -1,3 +1,11 @@
+// Suppress specific deprecation warning for punycode
+process.emitWarning = (warning, type, code, ...args) => {
+  if (code === "DEP0040") {
+    return;
+  }
+  return process.emitWarning(warning, type, code, ...args);
+};
+
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
@@ -55,6 +63,8 @@ app.use((error, req, res, next) => {
 
 //------------------Mongo------------------------
 console.log(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@${process.env.MongoDB_Server}/?retryWrites=true&w=majority&appName=${process.env.MongoDB_AppName}`);
+// Set the strictQuery option to false to prepare for Mongoose 7
+mongoose.set("strictQuery", false);
 
 mongoose
   .connect(`mongodb+srv://${process.env.MongoDB_User}:${process.env.MongoDB_Password}@${process.env.MongoDB_Server}/?retryWrites=true&w=majority&appName=${process.env.MongoDB_AppName}`)

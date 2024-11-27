@@ -2,9 +2,8 @@
 const HttpError = require("../models/http-error");
 const User = require("../models/users/user-model");
 //const Student = require("../models/users/student-model");
-const Resource = require("../models/resources/external-resource-model");
+const ExternalResource = require("../models/resources/external-resource-model");
 const userController = require("../controllers/user-controller");
-const getUserById = userController.getUserById;
 
 //------------------Libraries---------------------------
 const fs = require("fs");
@@ -14,7 +13,7 @@ const path = require("path");
 const getResourceById = async (rid) => {
   let resource;
   try {
-    resource = await Resource.findById(rid);
+    resource = await ExternalResource.findById(rid);
   } catch (error) {
     return {
       error: error,
@@ -39,7 +38,7 @@ const getPublicResources = async (req, res, next) => {
   const { resourceType, resourcePageNumber, resourcePageSize } = req.body;
   let resources;
   try {
-    resources = await Resource.find({ audience: { $in: [resourceType] } }); //
+    resources = await ExternalResource.find({ audience: { $in: [resourceType] } }); //
   } catch (error) {
     return next(new HttpError("Could not access database", 500));
   }
@@ -55,26 +54,31 @@ const getDashboardResources = async (req, res, next) => {
 
   const userId = req.userData._id; //!change to student ID
 
-  let user = await getUserById(userId);
+  let user = await userController.getUserById(userId);
   if (!!user.error) {
     return next(new HttpError(user.errorMessage, user.errorCode));
   }
-  let student;
-  //let studentId = user.student;
-  //try{
-  //!NEED TO FINISH THIS, Search for student by ID
-  //}
+  const accountType = "student";
+  let account;
+  account = await getUserAccountByUser(uid, accountType);
+  if (!!account.error) {
+    return next(new HttpError(user.errorMessage, user.errorCode));
+  }
+  account.dashboard.resources.forEach((element) => {
+    //!needs to be tested
+    console.log(element);
+  });
 
   res.status(200).json({ resources: resources });
 };
 
 const createResource = async (req, res, next) => {
-  const { title, search, description, link, audience } = req.body;
+  const { title, tags, description, link, audience } = req.body;
   const userId = req.userData._id;
 
   let existingResource;
   try {
-    existingResource = await Resource.findOne({ title: title });
+    existingResource = await ExternalResource.findOne({ title: title });
   } catch (error) {
     return next(new HttpError("Resource creation failed, could not access database", 500));
   }
@@ -83,17 +87,25 @@ const createResource = async (req, res, next) => {
   }
 
   // Use req.file.path if file exists, otherwise set to null or default image path
-  const imagePath = req.file ? req.file.path : "path/to/default/image.png";
+  const imagePath = req.file ? req.file.path : "/data/uploads/resourceImages/DefaultResourceImage.jpg";
 
-  const createdResource = new Resource({
+  const createdResource = new ExternalResource({
     title,
-    search,
+    tags,
     description,
     link,
     image: imagePath,
-    audience,
     creator: userId,
+    audience,
     users: [userId],
+    analytics: {
+      resourceCreated: Date.now(),
+      lastModified: Date.now(),
+      status: {
+        active: true,
+        statusChangeDate: Date.now(),
+      },
+    },
   });
 
   try {
@@ -110,7 +122,7 @@ const deleteResource = async (req, res, next) => {
 
   let resource;
   try {
-    resource = await Resource.findById(resourceId);
+    resource = await ExternalResource.findById(resourceId);
   } catch (error) {
     return next(new HttpError("Resource deletion failed, could not access database", 500));
   }
@@ -120,7 +132,7 @@ const deleteResource = async (req, res, next) => {
   }
 
   // Delete image file if it exists
-  if (resource.image !== "path/to/default/image.png") {
+  if (resource.image !== "/data/uploads/resourceImages/DefaultResourceImage.jpg") {
     fs.unlink(resource.image, (error) => {
       console.log(error);
     });
