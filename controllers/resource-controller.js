@@ -36,13 +36,13 @@ const getPublicResources = async (req, res, next) => {
   //! eventually only return "resourcePageSize" number of resources
   //returns a list of resources for the new students
   const resourceType = req.params.resourceType;
+  console.log(resourceType);
   let resources;
   try {
-    resources = await ExternalResource.find({ audience: { $in: [resourceType] } });
+    resources = await ExternalResource.find({ audience: [resourceType] });
   } catch (error) {
     return next(new HttpError("Could not access database", 500));
   }
-  console.log(resources);
   if (!resources || resources.length === 0) {
     return next(new HttpError("No resources found", 404));
   }
