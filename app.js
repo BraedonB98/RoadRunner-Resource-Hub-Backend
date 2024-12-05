@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 
 app.use("/data/frontEndRef/images", express.static(path.join("data", "frontEndRef", "images")));
 app.use("/data/uploads/images", express.static(path.join("data", "uploads", "images")));
+app.use("/data/uploads/resourceImages", express.static(path.join("data", "uploads", "resourceImages")));
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*"); //Access-control-Allow-Origin required to let browser use api, the the * can be replaced by urls (for the browser) that are allowed to use it
   res.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Authorization");
