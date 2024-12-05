@@ -37,22 +37,33 @@ const getStudentById = async (sid) => {
 
 const createStudentUser = async (req, res, next) => {
   //Eventually check msu database for student ID to ensure email and SID match
-  const { firstName, middleName, lastName, userName, preferredName, gender, pronouns, email, phoneNumber, password, schoolStudentID, birthdate } = req.body;
-
+  const { firstName, middleName, lastName, preferredName, gender, pronouns, email, phoneNumber, password, schoolStudentID, birthdate } = req.body;
+  const userName = email.split("@")[0];
+  console.log(firstName, middleName, lastName, preferredName, gender, pronouns, email, phoneNumber, password, schoolStudentID, birthdate);
   //Validate  email
-  if (!isEmail(email) || !email.endsWith("@msudenver.edu")) {
+  let standardizedEmail;
+  try {
+    if (!isEmail(email) || !email.endsWith("@msudenver.edu")) {
+      return next(new HttpError("Invalid email address. Please use an @msudenver.edu email.", 422));
+    }
+    //Standardize email
+    standardizedEmail = email.toLowerCase();
+  } catch {
     return next(new HttpError("Invalid email address. Please use an @msudenver.edu email.", 422));
   }
-  //Standardize email
-  const standardizedEmail = email.toLowerCase();
 
+  let formattedPhoneNumber;
   //Validate phone number
-  if (!isMobilePhone(phoneNumber, "en-US")) {
+  try {
+    if (!isMobilePhone(phoneNumber, "en-US")) {
+      return next(new HttpError("Invalid phone number", 422));
+    }
+    // Standardize phone number
+    const standardizedPhoneNumber = phoneNumber.replace(/\D/g, ""); // Remove non-numeric characters
+    formattedPhoneNumber = `1${standardizedPhoneNumber}`; // Add country code for US
+  } catch {
     return next(new HttpError("Invalid phone number", 422));
   }
-  // Standardize phone number
-  const standardizedPhoneNumber = phoneNumber.replace(/\D/g, ""); // Remove non-numeric characters
-  const formattedPhoneNumber = `+1${standardizedPhoneNumber}`; // Add country code for US
 
   // Validate schoolStudentID
   const schoolStudentIDRegex = /^(900|901)\d{6}$/;
@@ -60,27 +71,21 @@ const createStudentUser = async (req, res, next) => {
     return next(new HttpError("Invalid school student ID. It must be 9 digits long and start with 900 or 901.", 422));
   }
   // Validate birthdate
-  if (!isDate(birthdate)) {
-    return next(new HttpError("Invalid birthdate. Please provide a valid date.", 422));
-  }
-  // Convert birthdate to Date object
-  const birthdateObj = new Date(birthdate);
-  if (isNaN(birthdateObj.getTime())) {
-    return next(new HttpError("Invalid birthdate. Please provide a valid date.", 422));
-  }
+
   //Checking if user already has account
   let existingUser;
   try {
     existingUser = await User.findOne({ email: standardizedEmail });
-    if (!existingUser) {
-      existingUser = await User.findOne({ phoneNumber: formattedPhoneNumber });
+    console.log(existingUser);
+    if (!!existingUser) {
+      return next(new HttpError("You appear to already have an account, Try signing in?", 409));
     }
   } catch (error) {
     return next(new HttpError("Sign up failed, Could not access database", 500));
   }
 
   if (existingUser) {
-    return next(new HttpError("Could not create user, credentials(phonenumber or email) already in use"), 422);
+    return next(new HttpError("It appears you already have an account, Try signing in", 409));
   }
 
   let hashedPassword;
