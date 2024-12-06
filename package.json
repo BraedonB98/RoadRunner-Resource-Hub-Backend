@@ -5,7 +5,10 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "dev": "nodemon app.js"
+    "dev": "nodemon app.js",
+    "clearDatabase": "nodemon ./scripts/clear-database.js",
+    "populateDatabase": " nodemon ./scripts/starter-database.js",
+    "test": "run ./tests/roadrunner-resource-hub.postman_collection.json"
   },
   "repository": {
     "type": "git",

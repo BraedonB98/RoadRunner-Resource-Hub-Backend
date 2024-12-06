@@ -1,0 +1,57 @@
+{
+  "info": {
+    "name": "RoadRunner Resource Hub",
+    "_postman_id": "unique-id",
+    "description": "Collection of API endpoints for RoadRunner Resource Hub",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Get All Resources",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/resources",
+          "host": ["{{baseUrl}}"],
+          "path": ["resources"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Student",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": JSON.stringify({
+            "firstName": "John",
+            "middleName": "Doe",
+            "lastName": "Smith",
+            "preferredName": "Johnny",
+            "gender": "Male",
+            "pronouns": "He/Him",
+            "email": "john.smith@msudenver.edu",
+            "phoneNumber": "1234567890",
+            "password": "StrongPassword123!",
+            "schoolStudentID": "900123456",
+            "birthdate": "2000-01-01"
+          })
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/user/student",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "user", "student"]
+        }
+      },
+      "response": []
+    }
+  ]
+}

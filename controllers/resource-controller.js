@@ -35,6 +35,7 @@ const getResourceById = async (rid) => {
 const getPublicResources = async (req, res, next) => {
   //! eventually only return "resourcePageSize" number of resources
   //returns a list of resources for the new students
+
   const resourceType = req.params.resourceType;
   console.log(resourceType);
   let resources;
