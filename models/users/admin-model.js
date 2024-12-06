@@ -2,14 +2,14 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const { isEmail, isMobilePhone, isStrongPassword } = require('validator');
+const { isEmail, isMobilePhone, isStrongPassword } = require("validator");
 
 const adminSchema = new Schema({
-  schoolAdminID: { type: String , required: true},
+  schoolAdminID: { type: String, required: true },
   birthdate: { type: Date },
-  address: { type: mongoose.types.ObjectId, ref: "Location" },
-  permanentAddress: { type: mongoose.types.ObjectId, ref: "Location" },
-  universityStructure:{
+  address: { type: mongoose.Types.ObjectId, ref: "Location" },
+  permanentAddress: { type: mongoose.Types.ObjectId, ref: "Location" },
+  universityStructure: {
     school: { type: mongoose.Types.ObjectId, ref: "School" },
     department: { type: mongoose.Types.ObjectId, ref: "Department" },
     title: { type: String },
@@ -20,14 +20,14 @@ const adminSchema = new Schema({
     event: [{ type: mongoose.Types.ObjectId, ref: "Event" }],
     resource: [{ type: mongoose.Types.ObjectId, ref: "Resource" }],
   },
-  analytics:{
-    accountCreated: { type: Date , default: Date.now},
-    lastLogin: { type: Date , default: Date.now},
-    lastModified: { type: Date , default: Date.now},
-    status: { 
-      active: { type: Boolean , default: true},
-      statusChangeDate: { type: Date , default: Date.now},
-    }, 
+  analytics: {
+    accountCreated: { type: Date, default: Date.now },
+    lastLogin: { type: Date, default: Date.now },
+    lastModified: { type: Date, default: Date.now },
+    status: {
+      active: { type: Boolean, default: true },
+      statusChangeDate: { type: Date, default: Date.now },
+    },
   },
   permissions: [{ type: mongoose.Types.ObjectId, ref: "Permission" }],
   dashboard: {
@@ -36,7 +36,7 @@ const adminSchema = new Schema({
     announcements: [{ type: mongoose.Types.ObjectId, ref: "Announcement" }],
   },
   preferences: {
-    notifications: { type: Boolean },//expand this later to time, email, phone, ext
+    notifications: { type: Boolean }, //expand this later to time, email, phone, ext
   },
 });
 
